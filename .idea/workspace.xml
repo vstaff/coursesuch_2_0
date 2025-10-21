@@ -4,25 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1e58b13-23ce-4f30-be62-c02f61d31817" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/avl_tree.py" afterDir="false" />
+    <list default="true" id="b1e58b13-23ce-4f30-be62-c02f61d31817" name="Changes" comment="подредачил avl_tree.py, hash_table.py, my_list.py (ранее он был List.py вроде)&#10;надо установить pyqt6">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Kursach.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Kursach.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AVL_Tree.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HasgTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/hash_table.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyList.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Otchet.py" beforeDir="false" afterPath="$PROJECT_DIR$/Otchet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PetsTableView.py" beforeDir="false" afterPath="$PROJECT_DIR$/PetsTableView.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StartWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/StartWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableOtchet.py" beforeDir="false" afterPath="$PROJECT_DIR$/TableOtchet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViewAVLT.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewAVLT.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViewTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewTable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViewTreeTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewTreeTable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main_activ/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/main_activ/Analysis-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main_activ/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/main_activ/PYZ-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main_activ/xref-main_activ.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/main_activ/xref-main_activ.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_activ.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_activ.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ttt.py" beforeDir="false" afterPath="$PROJECT_DIR$/ttt.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +18,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "vstaff"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/vstaff/coursesuch_2_0.git",
+    "accountId": "75cf217b-fbc2-4319-a893-b1b29fa3df32"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -48,7 +46,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/vstaffcheck/Desktop/vlad/ДВФУ ПРОГИН/КУРСАЧ/queer/Kursach",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -66,6 +64,15 @@
       <option name="presentableId" value="Default" />
       <updated>1760939435172</updated>
     </task>
+    <task id="LOCAL-00001" summary="подредачил avl_tree.py, hash_table.py, my_list.py (ранее он был List.py вроде)&#10;надо установить pyqt6">
+      <option name="closed" value="true" />
+      <created>1761023643456</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1761023643456</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -78,5 +85,23 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="подредачил avl_tree.py, hash_table.py, my_list.py (ранее он был List.py вроде)&#10;надо установить pyqt6" />
+    <option name="LAST_COMMIT_MESSAGE" value="подредачил avl_tree.py, hash_table.py, my_list.py (ранее он был List.py вроде)&#10;надо установить pyqt6" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TableOtchet.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MainWindow.py</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
