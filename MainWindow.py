@@ -20,8 +20,8 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QPen
 from PyQt6.QtCore import Qt
-from HasgTable import Hash_Table
-from AVL_Tree import AVLT
+from hash_table import HashTable
+from avl_tree import AVLTree
 import re
 from ViewTable import ViewTable
 from PetsTableView import ArrtTableView
@@ -55,7 +55,7 @@ class PetsPriem:
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, table: Hash_Table, tree: AVLT, arr2, arrt):
+    def __init__(self, table: HashTable, tree: AVLTree, arr2, arrt):
         super().__init__()
         self.tree = tree
         self.table = table

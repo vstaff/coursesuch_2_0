@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QFileDialog
 import re
-from AVL_Tree import Priem
+from avl_tree import Grade
 from ViewAVLT import AVLWindow
 
 
@@ -77,7 +77,7 @@ class AVLTableView(QWidget):
                     p = self.main_window.all_data[idx]
 
                 if p is None:
-                    p = Priem("[Удалено]", "[Удалено]", "-", "-", "-")
+                    p = Grade("[Удалено]", "[Удалено]", "-", "-", "-")
 
                 rows.append((p._name, p._owner, p._dianoz, p._doctor, p._date, idx))
                 cur = cur._next
@@ -153,7 +153,7 @@ class AVLTableView(QWidget):
                 )
                 return
 
-            data = Priem(
+            data = Grade(
                 name.text(), owner.text(), diag.text(), doctor.text(), date.text()
             )
 
@@ -236,7 +236,7 @@ class AVLTableView(QWidget):
                 QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных")
                 return
 
-            data = Priem(
+            data = Grade(
                 name.text(), owner.text(), diag.text(), doctor.text(), date.text()
             )
 
@@ -312,8 +312,8 @@ class AVLTableView(QWidget):
                 QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных")
                 return
 
-            data = Priem(name.text(), owner.text())
-            node = self.tree.search(data)
+            data = Grade(name.text(), owner.text())
+            node = self.tree.find(data)
 
             if not node:
                 QMessageBox.warning(dialog, "Результат", "Приём не найден")

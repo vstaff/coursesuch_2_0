@@ -70,7 +70,7 @@ class OtchetTable(QWidget):
 
     def get_all_rows(self):
         rows = []
-        result_nodes = self.tree.inOrder(self.tree._root)
+        result_nodes = self.tree.in_order(self.tree._root)
         for node_list in result_nodes:
             for i in range(node_list.get_size()):
                 idx = node_list[i]
@@ -79,7 +79,7 @@ class OtchetTable(QWidget):
                     if p is None:
                         continue
                     try:
-                        type_ = self.main_window.table.search(p._name, p._owner)._type
+                        type_ = self.main_window.table.find(p._name, p._owner)._type
                     except:
                         type_ = p._type
                     rows.append(

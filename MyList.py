@@ -1,15 +1,31 @@
 class ListNode:
     def __init__(self, data):
         self._data = data
-        self._next = None
-        self._prev = None
+        self._next: None | ListNode = None
+        self._prev: None | ListNode = None
+
+    @property
+    def data(self):
+        return self._data
+
+    @property
+    def next(self):
+        return self._next
+
+    @property
+    def prev(self):
+        return self._prev
 
 
-class List:
+class MyList:
     def __init__(self):
-        self._head = None
-        self._tail = None
+        self._head: None | ListNode = None
+        self._tail: None | ListNode = None
         self._size = 0
+
+    @property
+    def head(self):
+        return self._head
 
     def add(self, data):
         temp = ListNode(data)

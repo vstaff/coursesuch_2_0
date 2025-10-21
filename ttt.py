@@ -72,6 +72,6 @@ print(sum(ord(c) for c in s) % 10)
 #                     else:
 #                         self.mainw.arrt.pop()
 #
-#                     found = self.mainw.table.search(name, owner)
+#                     found = self.mainw.table.find(student_name, subject)
 #                     if found:
 #                         self.mainw.table.delete(found)

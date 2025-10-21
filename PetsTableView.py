@@ -5,10 +5,10 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt
 from ViewTable import ViewTable
-from AVL_Tree import Priem
-from HasgTable import Data
+from avl_tree import Grade
+from hash_table import Student
 import re
-from AVL_Tree import  AVLT
+from avl_tree import  AVLTree
 
 pattern1 = r"[А-ЯЁ][а-яё]+"
 pattern2 = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
@@ -101,15 +101,15 @@ class ArrtTableView(QWidget):
                 return
 
 
-            if self.mainw.table.ifFull():
+            if self.mainw.table.is_full():
                 QMessageBox.warning(dialog, "Ошибка", "Хеш-таблица переполнена. Добавление невозможно.")
                 return
 
             index = len(self.mainw.arrt)
-            new_data = Data(name, type_, owner, index)
+            new_data = Student(name, type_, owner, index)
             self.mainw.arrt.append(new_data)
 
-            if not self.mainw.table.isUniq(new_data):
+            if not self.mainw.table.is_unique(new_data):
                 QMessageBox.warning(dialog, "Ошибка", "Не удалось вставить элемент в справочник, он уже существует.")
                 return
             if not self.mainw.table.insert(new_data):
@@ -162,13 +162,13 @@ class ArrtTableView(QWidget):
                     else:
                         self.mainw.arrt.pop()
 
-                    found = self.mainw.table.search(name, owner)
+                    found = self.mainw.table.find(name, owner)
                     if found:
                         self.mainw.table.delete(found)
 
-                    node = self.mainw.tree.search(Priem(name, owner))
+                    node = self.mainw.tree.find(Grade(name, owner))
                     if node:
-                        cur = node.get_lst()._head
+                        cur = node.get_list()._head
                         indices_to_remove = []
 
                         while cur:

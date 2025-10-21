@@ -1,7 +1,7 @@
 ('C:\\Проги\\Kursach\\build\\main_activ\\PYZ-00.pyz',
  [('AVL_Tree', 'C:\\Проги\\Kursach\\AVL_Tree.py', 'PYMODULE'),
   ('HasgTable', 'C:\\Проги\\Kursach\\HasgTable.py', 'PYMODULE'),
-  ('List', 'C:\\Проги\\Kursach\\List.py', 'PYMODULE'),
+  ('MyList', 'C:\\Проги\\Kursach\\MyList.py', 'PYMODULE'),
   ('MainWindow', 'C:\\Проги\\Kursach\\MainWindow.py', 'PYMODULE'),
   ('Otchet', 'C:\\Проги\\Kursach\\Otchet.py', 'PYMODULE'),
   ('OtchetTreeView', 'C:\\Проги\\Kursach\\OtchetTreeView.py', 'PYMODULE'),

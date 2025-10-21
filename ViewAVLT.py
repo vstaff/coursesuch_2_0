@@ -16,7 +16,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtGui import QPen
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetricsF, QFont
-from AVL_Tree import AVLT, Priem
+from avl_tree import AVLTree, Grade
 import re
 
 pattern = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
@@ -68,7 +68,7 @@ class AVLGraphicsView(QGraphicsView):
         self.scene.addItem(key_text)
 
         indices = []
-        cur = node.get_lst()._head
+        cur = node.get_list()._head
         while cur:
             indices.append(str(cur._data))
             cur = cur._next

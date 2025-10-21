@@ -342,7 +342,7 @@
   ('main_activ', 'C:\\Проги\\Kursach\\main_activ.py', 'PYMODULE'),
   ('MainWindow', 'C:\\Проги\\Kursach\\MainWindow.py', 'PYMODULE'),
   ('Otchet', 'C:\\Проги\\Kursach\\Otchet.py', 'PYMODULE'),
-  ('List', 'C:\\Проги\\Kursach\\List.py', 'PYMODULE'),
+  ('MyList', 'C:\\Проги\\Kursach\\MyList.py', 'PYMODULE'),
   ('TableOtchet', 'C:\\Проги\\Kursach\\TableOtchet.py', 'PYMODULE'),
   ('OtchetTreeView', 'C:\\Проги\\Kursach\\OtchetTreeView.py', 'PYMODULE'),
   ('ViewTreeTable', 'C:\\Проги\\Kursach\\ViewTreeTable.py', 'PYMODULE'),

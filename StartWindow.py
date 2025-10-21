@@ -11,8 +11,8 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
-from HasgTable import Hash_Table
-from AVL_Tree import AVLT
+from hash_table import HashTable
+from avl_tree import AVLTree
 from MainWindow import MainWindow
 from main_activ import init_arr1, init_arr2
 import sys
@@ -117,11 +117,11 @@ class StartWindow(QWidget):
                     )
                     return
 
-            table = Hash_Table(arr, size)
+            table = HashTable(arr, size)
 
             if not tree_path:
                 arr2 = []
-                tree = AVLT([])
+                tree = AVLTree([])
             else:
                 arr2 = init_arr2(tree_path, table)
                 if len(arr2) == 0:
@@ -131,7 +131,7 @@ class StartWindow(QWidget):
                         "Файлы справочников пусты или имеют неверный формат данных.",
                     )
                     return
-                tree = AVLT(arr2)
+                tree = AVLTree(arr2)
 
         except Exception as e:
             QMessageBox.critical(

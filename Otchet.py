@@ -1,4 +1,4 @@
-from List import List
+from MyList import MyList
 
 
 class PetsPriem:
@@ -21,7 +21,7 @@ class Node:
     def __init__(self, obj, index):
         self._key = obj._date
         self._right = None
-        self._list = List()
+        self._list = MyList()
         self._list.add(index)
         self._left = None
         self._balance = 0
@@ -123,7 +123,7 @@ class AVLT2:
     def init_tree(self, lst):
 
         for idx, item in enumerate(lst):
-            type = self.hashtable.search(item._name, item._owner)._type
+            type = self.hashtable.find(item._name, item._owner)._type
             temp = PetsPriem(
                 item._name, type, item._owner, item._dianoz, item._doctor, item._date
             )

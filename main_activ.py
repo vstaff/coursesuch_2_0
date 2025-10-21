@@ -18,7 +18,7 @@ from PyQt6.QtWidgets import (
 )
 
 import re
-from AVL_Tree import AVLT
+from avl_tree import AVLTree
 import sys
 
 pattern = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
@@ -144,7 +144,7 @@ def init_arr2(filename, table):
                 continue
 
             temp = Priem(patsname, fio, diagnoz, doctor, date)
-            if temp._name + temp._owner not in table.keys():
+            if temp._name + temp._owner not in table.get_keys():
                 continue
             if temp in arr:
                 continue
