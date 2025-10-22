@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1e58b13-23ce-4f30-be62-c02f61d31817" name="Changes" comment="подключил виртуальное окружение (папка .venv)&#10;вручную установил PyQt6&#10;создал requirements.txt, потом заморозил его">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyList.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyList.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Otchet.py" beforeDir="false" afterPath="$PROJECT_DIR$/Otchet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PetsTableView.py" beforeDir="false" afterPath="$PROJECT_DIR$/PetsTableView.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TableOtchet.py" beforeDir="false" afterPath="$PROJECT_DIR$/TableOtchet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViewAVLT.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewAVLT.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViewTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewTable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViewTreeTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewTreeTable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/avl_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/avl_tree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hash_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/hash_table.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_activ.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_activ.py" afterDir="false" />
-    </list>
+    <list default="true" id="b1e58b13-23ce-4f30-be62-c02f61d31817" name="Changes" comment="я уже не помню че я тут сделал&#10;короче я создам новую ветку&#10;на ней откачусь на самый старт" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,7 +75,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761025504327</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="я уже не помню че я тут сделал&#10;короче я создам новую ветку&#10;на ней откачусь на самый старт">
+      <option name="closed" value="true" />
+      <created>1761145990190</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1761145990191</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -106,7 +100,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="подредачил avl_tree.py, hash_table.py, my_list.py (ранее он был List.py вроде)&#10;надо установить pyqt6" />
     <MESSAGE value="подключил виртуальное окружение (папка .venv)&#10;вручную установил PyQt6&#10;создал requirements.txt, потом заморозил его" />
-    <option name="LAST_COMMIT_MESSAGE" value="подключил виртуальное окружение (папка .venv)&#10;вручную установил PyQt6&#10;создал requirements.txt, потом заморозил его" />
+    <MESSAGE value="я уже не помню че я тут сделал&#10;короче я создам новую ветку&#10;на ней откачусь на самый старт" />
+    <option name="LAST_COMMIT_MESSAGE" value="я уже не помню че я тут сделал&#10;короче я создам новую ветку&#10;на ней откачусь на самый старт" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
