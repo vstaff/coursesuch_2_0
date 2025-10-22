@@ -4,15 +4,15 @@ from dataclasses import dataclass
 
 # справочник 2
 @dataclass
-class Grade:
+class AVLTreeGrade:
     student_name: str = ""
     subject: str = ""
-    grade: str = ""
-    date: str = ""
+    grade: int = 0
+    birth_date: str = ""
 
 
 class Node:
-    def __init__(self, grade: Grade, index: int):
+    def __init__(self, grade: AVLTreeGrade, index: int):
         self._key = grade.student_name
         self._right: None | Node = None
         self._list = MyList()
@@ -119,7 +119,7 @@ class AVLTree:
             return self._rotate_left(node)
         return node
 
-    def insert(self, obj: Grade, index: int):
+    def insert(self, obj: AVLTreeGrade, index: int):
         self._root = self._insert(self._root, obj, index)
 
     def _insert(self, node, obj, index):
@@ -150,7 +150,7 @@ class AVLTree:
 
 
 
-    def delete(self, obj: Grade):
+    def delete(self, obj: AVLTreeGrade):
         key = obj.student_name + obj.subject
         self._root = self._delete(self._root, key)
 
@@ -201,8 +201,8 @@ class AVLTree:
         if node.left:
             self.print_tree(node.left, level + 1)
 
-    def find(self, obj_or_key: str | Grade):
-        if isinstance(obj_or_key, Grade):
+    def find(self, obj_or_key: str | AVLTreeGrade):
+        if isinstance(obj_or_key, AVLTreeGrade):
             key = obj_or_key.student_name + obj_or_key.subject
         else:
             key = obj_or_key
@@ -235,7 +235,7 @@ class AVLTree:
                 return True
         return False
 
-    def remove_index(self, data: Grade, index, p: None | Node=None):
+    def remove_index(self, data: AVLTreeGrade, index, p: None | Node=None):
         if p is None:
             p = self._root
             root_call = True
@@ -286,7 +286,7 @@ class AVLTree:
                     height_changed = True
             return p, height_changed
 
-    def find_exact(self, data: Grade):
+    def find_exact(self, data: AVLTreeGrade):
         key = data.student_name
         node = self._root
         while node is not None:
@@ -302,7 +302,7 @@ class AVLTree:
                 return
         return
 
-    def find_index_by_data(self, data: Grade, node=None):
+    def find_index_by_data(self, data: AVLTreeGrade, node=None):
         if node is None:
             node = self._root
 

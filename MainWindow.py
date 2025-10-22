@@ -24,13 +24,13 @@ from hash_table import HashTable
 from avl_tree import AVLTree
 import re
 from ViewTable import ViewTable
-from PetsTableView import ArrtTableView
+from PetsTableView import HashTableView
 from ViewAVLT import AVLGraphicsView
 from ViewTreeTable import AVLTableView
 from ViewAVLT import AVLWindow
 from OtchetTreeView import AVL2Window
 from TableOtchet import OtchetTable
-from Otchet import AVLT2
+from Otchet import AVLTree2
 
 pattern = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
 pattern2 = (
@@ -39,18 +39,18 @@ pattern2 = (
 
 
 class PetsPriem:
-    def __init__(self, name="", type="", owner="", diagonz="", doctor="", date=""):
+    def __init__(self, name="", type="", owner="", diagonz="", doctor="", birth_date=""):
         self._name = name
         self._type = type
         self._owner = owner
         self._dianoz = diagonz
         self._doctor = doctor
-        self._date = date
+        self._birth_date = birth_date
 
     def __str__(self):
         return (
             f"Name: {self._name}, Owner: {self._owner}, "
-            f"Diagnosis: {self._dianoz}, Doctor: {self._doctor}, Date: {self._date}"
+            f"Diagnosis: {self._dianoz}, Doctor: {self._doctor}, Date: {self._birth_date}"
         )
 
 
@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
         self.arrt = arrt
         # self.view_tree = AVLGraphicsView(tree, self, table)
         self.view_tree1 = AVLTableView(tree, self, table)
-        self.view_arrt_table = ArrtTableView(self)
+        self.view_arrt_table = HashTableView(self)
         self.top_button = QPushButton("Сформировать отчет")
         self.top_button.clicked.connect(self.on_but_click)
         layout.addWidget(self.top_button)
@@ -81,7 +81,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.view_tree1)
 
     def show_filtered_report(self, type_filter, doctor_filter, date_filter):
-        report_tree = AVLT2(self.all_data, self.table)
+        report_tree = AVLTree2(self.all_data, self.table)
         matching_rows = []
 
         current = report_tree._root
@@ -112,7 +112,7 @@ class MainWindow(QMainWindow):
                                         record._owner,
                                         record._dianoz,
                                         record._doctor,
-                                        record._date,
+                                        record._birth_date,
                                     )
                                 )
                 break
@@ -159,10 +159,10 @@ class MainWindow(QMainWindow):
 
             result["type"] = type_text.lower()
             result["doctor"] = doctor_text.lower()
-            result["date"] = date_text.lower()
+            result["birth_date"] = date_text.lower()
             dialog.accept()  # Закрыть окно
 
         apply_button.clicked.connect(apply_filter)
 
         if dialog.exec() == QDialog.DialogCode.Accepted:
-            self.show_filtered_report(result["type"], result["doctor"], result["date"])
+            self.show_filtered_report(result["type"], result["doctor"], result["birth_date"])

@@ -5,15 +5,16 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt
 from ViewTable import ViewTable
-from avl_tree import Grade
-from hash_table import Student
+from avl_tree import AVLTreeGrade
+from hash_table import HashTableStudent
 import re
 from avl_tree import  AVLTree
 
 pattern1 = r"[А-ЯЁ][а-яё]+"
 pattern2 = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
 
-class ArrtTableView(QWidget):
+# данные из хт оботражает в виде таблицы
+class HashTableView(QWidget):
     def __init__(self, mainw):
         super().__init__()
         self.mainw = mainw
@@ -33,7 +34,7 @@ class ArrtTableView(QWidget):
     def refresh_table(self):
         table_data = []
         for data in self.mainw.arrt:
-            if self.mainw.table.is_key(data._name, data._owner):
+            if self.mainw.table.is_key(data._name, data._birth_date):
                 table_data.append(data)
 
         self.table_widget.setRowCount(len(table_data))
@@ -106,7 +107,7 @@ class ArrtTableView(QWidget):
                 return
 
             index = len(self.mainw.arrt)
-            new_data = Student(name, type_, owner, index)
+            new_data = HashTableStudent(name, type_, owner, index)
             self.mainw.arrt.append(new_data)
 
             if not self.mainw.table.is_unique(new_data):
@@ -166,7 +167,7 @@ class ArrtTableView(QWidget):
                     if found:
                         self.mainw.table.delete(found)
 
-                    node = self.mainw.tree.find(Grade(name, owner))
+                    node = self.mainw.tree.find(AVLTreeGrade(name, owner))
                     if node:
                         cur = node.get_list()._head
                         indices_to_remove = []

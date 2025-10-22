@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1e58b13-23ce-4f30-be62-c02f61d31817" name="Changes" comment="подредачил avl_tree.py, hash_table.py, my_list.py (ранее он был List.py вроде)&#10;надо установить pyqt6">
+    <list default="true" id="b1e58b13-23ce-4f30-be62-c02f61d31817" name="Changes" comment="подключил виртуальное окружение (папка .venv)&#10;вручную установил PyQt6&#10;создал requirements.txt, потом заморозил его">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Kursach.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Kursach.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyList.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Otchet.py" beforeDir="false" afterPath="$PROJECT_DIR$/Otchet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetsTableView.py" beforeDir="false" afterPath="$PROJECT_DIR$/PetsTableView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TableOtchet.py" beforeDir="false" afterPath="$PROJECT_DIR$/TableOtchet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ViewAVLT.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewAVLT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ViewTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewTable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ViewTreeTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewTreeTable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/avl_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/avl_tree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hash_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/hash_table.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_activ.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_activ.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,18 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "vstaff"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;vstaff&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/vstaff/coursesuch_2_0.git",
-    "accountId": "75cf217b-fbc2-4319-a893-b1b29fa3df32"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/vstaff/coursesuch_2_0.git&quot;,
+    &quot;accountId&quot;: &quot;75cf217b-fbc2-4319-a893-b1b29fa3df32&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -38,17 +47,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/vstaffcheck/Desktop/vlad/ДВФУ ПРОГИН/КУРСАЧ/queer/Kursach",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/vstaffcheck/Desktop/vlad/ДВФУ ПРОГИН/КУРСАЧ/queer/Kursach&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -72,7 +81,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761023643456</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="подключил виртуальное окружение (папка .venv)&#10;вручную установил PyQt6&#10;создал requirements.txt, потом заморозил его">
+      <option name="closed" value="true" />
+      <created>1761025504327</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1761025504327</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -88,7 +105,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="подредачил avl_tree.py, hash_table.py, my_list.py (ранее он был List.py вроде)&#10;надо установить pyqt6" />
-    <option name="LAST_COMMIT_MESSAGE" value="подредачил avl_tree.py, hash_table.py, my_list.py (ранее он был List.py вроде)&#10;надо установить pyqt6" />
+    <MESSAGE value="подключил виртуальное окружение (папка .venv)&#10;вручную установил PyQt6&#10;создал requirements.txt, потом заморозил его" />
+    <option name="LAST_COMMIT_MESSAGE" value="подключил виртуальное окружение (папка .venv)&#10;вручную установил PyQt6&#10;создал requirements.txt, потом заморозил его" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

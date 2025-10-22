@@ -2,21 +2,21 @@
 
 
 # первый справочник
-class Student:
+class HashTableStudent:
     def __init__(self, name="", class_="", date="", index=""):
         self._name: str = name
         self._class_ = class_
-        self._date = date
+        self._birth_date = date
         self._key: int = sum(ord(c) for c in (name + date))
         self._status = 0
         self._index = index
 
     def __eq__(self, other):
         return (
-                isinstance(other, Student)
+                isinstance(other, HashTableStudent)
                 and self._name == other._name
                 and self._class_ == other._class_
-                and self._date == other._date
+                and self._birth_date == other._birth_date
         )
 
     @property
@@ -28,8 +28,8 @@ class Student:
         return self._class_
 
     @property
-    def date(self):
-        return self._date
+    def birth_date(self):
+        return self._birth_date
 
     @property
     def key(self):
@@ -57,7 +57,7 @@ def get_rows_amount(filename: str):
 class HashTable:
     def __init__(self, arr, size):
         self.__size = size
-        self.__table = [Student() for _ in range(self.__size)]
+        self.__table = [HashTableStudent() for _ in range(self.__size)]
         self.init_table(arr)
 
     def get_pos(self, key):
@@ -73,13 +73,12 @@ class HashTable:
             return self.__table[hash2].index
 
     def get_keys(self):
-        keys: list[int] = []
-        for i in range(self.__size):
-            item = self.__table[i].key
-            if item == " " or item == "":
-                continue
-            keys.append(item)
-        return set(keys)
+        return set(
+            filter(
+                lambda key: key.strip() != "",
+                (table_item.key for table_item in self.__table)
+            )
+        )
 
     def is_full(self):
         i = 0
@@ -89,7 +88,7 @@ class HashTable:
                 return True
         return False
 
-    def is_unique(self, data: Student):
+    def is_unique(self, data: HashTableStudent):
         for i in range(self.__size):
             quadratic_hash = self.quadratic_search(data.key, i)
             if self.__table[quadratic_hash].key != data.key:
@@ -113,7 +112,7 @@ class HashTable:
     def lin_prob(self, key, i):
         return (self.hash_func1(key) + i) % self.__size
 
-    def insert(self, data: Student):
+    def insert(self, data: HashTableStudent):
         if self.is_full():
             print("Не добавлено, таблица заполнена")
             return False
@@ -163,7 +162,7 @@ class HashTable:
             key = str(data.key) or ""
             name = data.name or ""
             class_ = data.class_ or ""
-            date = data.date or ""
+            date = data.birth_date or ""
             status = str(data.status) or ""
             index = str(data.index) or ""
 
@@ -182,7 +181,7 @@ class HashTable:
                     item.key == key
                     and item.status == 1
                     and item.name == name
-                    and item.date == date
+                    and item.birth_date == date
             ):
                 return item
         return None
@@ -213,7 +212,7 @@ class HashTable:
                     item.status == 1
                     and item.key == key
                     and item.name == name
-                    and item.date == date
+                    and item.birth_date == date
             ):
                 return True
 

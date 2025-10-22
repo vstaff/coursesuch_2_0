@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 import re
 from OtchetTreeView import AVL2Window
-from Otchet import AVLT2
+from Otchet import AVLTree2
 
 pattern = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
 pattern2 = (
@@ -24,13 +24,13 @@ pattern2 = (
 
 
 class PetsPriem:
-    def __init__(self, name="", type="", owner="", diagonz="", doctor="", date=""):
+    def __init__(self, name="", type="", owner="", diagonz="", doctor="", birth_date=""):
         self._name = name
         self._type = type
         self._owner = owner
         self._dianoz = diagonz
         self._doctor = doctor
-        self._date = date
+        self._birth_date = birth_date
 
 
 class OtchetTable(QWidget):
@@ -83,7 +83,7 @@ class OtchetTable(QWidget):
                     except:
                         type_ = p._type
                     rows.append(
-                        (p._name, type_, p._owner, p._dianoz, p._doctor, p._date)
+                        (p._name, type_, p._owner, p._dianoz, p._doctor, p._birth_date)
                     )
         return rows
 
@@ -111,7 +111,7 @@ class OtchetTable(QWidget):
             self.export_data()
 
     def show_tree_view(self):
-        report_tree = AVLT2(self.main_window.all_data, self.main_window.table)
+        report_tree = AVLTree2(self.main_window.all_data, self.main_window.table)
         self.tree_window = AVL2Window(report_tree, self.main_window.all_data)
         self.tree_window.show()
 
@@ -181,7 +181,7 @@ class OtchetTable(QWidget):
                 for p in self.main_window.arr:
                     if p is None:
                         continue
-                    line = f"{p._name} {p._type} {p._owner} {p._dianoz} {p._doctor} {p._date}"
+                    line = f"{p._name} {p._type} {p._owner} {p._dianoz} {p._doctor} {p._birth_date}"
                     file.write(line + "\n")
             QMessageBox.information(
                 self, "Экспорт завершён", "Данные успешно экспортированы."

@@ -16,7 +16,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtGui import QPen
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetricsF, QFont
-from avl_tree import AVLTree, Grade
+from avl_tree import AVLTree, AVLTreeGrade
 import re
 
 pattern = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"

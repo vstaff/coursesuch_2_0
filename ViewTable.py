@@ -18,13 +18,13 @@ from PyQt6.QtWidgets import QFileDialog
 from PyQt6.QtCore import Qt
 
 
-from hash_table import HashTable, Student
-from hash_table import Student
+from hash_table import HashTable, HashTableStudent
+from hash_table import HashTableStudent
 import re
 from ViewAVLT import AVLGraphicsView
 from avl_tree import AVLTree
 from ViewTreeTable import AVLTableView
-from avl_tree import Grade
+from avl_tree import AVLTreeGrade
 
 pattern2 = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
 pattern1 = r"[А-ЯЁ][а-яё]+"
@@ -127,10 +127,10 @@ class ViewTable(QMainWindow):
     #             QMessageBox.warning(dialog, "Ошибка", "Все поля обязательны для ввода.")
     #             return
     #
-    #         if not (re.fullmatch(pattern1, student_name) and re.fullmatch(r"[А-Я][а-я]+( [а-я]+)*", type_) and re.fullmatch(pattern2, subject)):
+    #         if not (re.fullmatch(pattern1, student_name) and re.fullmatch(r"[А-Я][а-я]+( [а-я]+)*", type_) and re.fullmatch(pattern_date, subject)):
     #             QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных.")
     #             return
-    #         self.mainw.arrt.append(Student(student_name,type_,subject))
+    #         self.mainw.arrt.append(HashTableStudent(student_name,type_,subject))
     #         self.insert_action(dialog, student_name, type_, subject)
     #
     #     btn.clicked.connect(on_add_clicked)
@@ -181,7 +181,7 @@ class ViewTable(QMainWindow):
             QMessageBox.warning(self, "Ошибка", "Таблица переполнена.")
             return
         index = len(self.mainw.arrt)
-        data = Student(name, type_, owner, index)
+        data = HashTableStudent(name, type_, owner, index)
         if self.table_obj.insert(data):
             self.refresh_table()
             dialog.accept()
@@ -204,7 +204,7 @@ class ViewTable(QMainWindow):
             if (len(self.mainw.arrt) - 1) == temp._index:
                 temp = name + owner
                 key = name + owner
-                node = self.avl_tree.find(Grade(name, owner))
+                node = self.avl_tree.find(AVLTreeGrade(name, owner))
                 if node:
                     indices_to_remove = []
                     cur = node.get_list()._head
@@ -226,7 +226,7 @@ class ViewTable(QMainWindow):
                 self.mainw.arrt[temp._index] = tmp
                 temp = name + owner
                 key = name + owner
-                node = self.avl_tree.find(Grade(name, owner))
+                node = self.avl_tree.find(AVLTreeGrade(name, owner))
                 if node:
                     indices_to_remove = []
                     cur = node.get_list()._head

@@ -41,14 +41,14 @@ class MyList:
         t = self._head
         while t is not None:
             print(t._data, end=" ")
-            t = t._next
+            t = t.next
 
     def delete(self, data):
         current = self._head
         while current is not None:
-            if current._data == data:
+            if current.data == data:
                 if current == self._head:
-                    self._head = current._next
+                    self._head = current.next
                     if self._head:
                         self._head._prev = None
                     else:
@@ -82,13 +82,16 @@ class MyList:
             current = current._next
         return False
 
-    def contains(self, value):
+    def ___contains___(self, value):
         current = self._head
         while current:
-            if current._data == value:
+            if current.data == value:
                 return True
-            current = current._next
+            current = current.next
         return False
+
+    def __len__(self):
+        return self._size
 
     def get_size(self):
         return self._size
@@ -101,13 +104,13 @@ class MyList:
             raise IndexError("Index out of bounds")
         current = self._head
         for _ in range(index):
-            current = current._next
-        return current._data
+            current = current.next
+        return current.data
 
     def __setitem__(self, index, value):
         if not 0 <= index < self._size:
             raise IndexError("Index out of bounds")
         current = self._head
         for _ in range(index):
-            current = current._next
+            current = current.next
         current._data = value

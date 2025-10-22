@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QFileDialog
 import re
-from avl_tree import Grade
+from avl_tree import AVLTreeGrade
 from ViewAVLT import AVLWindow
 
 
@@ -77,7 +77,7 @@ class AVLTableView(QWidget):
                     p = self.main_window.all_data[idx]
 
                 if p is None:
-                    p = Grade("[Удалено]", "[Удалено]", "-", "-", "-")
+                    p = AVLTreeGrade("[Удалено]", "[Удалено]", "-", "-", "-")
 
                 rows.append((p._name, p._owner, p._dianoz, p._doctor, p._date, idx))
                 cur = cur._next
@@ -153,7 +153,7 @@ class AVLTableView(QWidget):
                 )
                 return
 
-            data = Grade(
+            data = AVLTreeGrade(
                 name.text(), owner.text(), diag.text(), doctor.text(), date.text()
             )
 
@@ -166,11 +166,11 @@ class AVLTableView(QWidget):
                     if p is None:
                         to_remove.append(idx)
                     elif (
-                        p._name == data._name
-                        and p._owner == data._owner
-                        and p._dianoz == data._dianoz
-                        and p._doctor == data._doctor
-                        and p._date == data._date
+                            p._name == data._name
+                            and p._owner == data._owner
+                            and p._dianoz == data._dianoz
+                            and p._doctor == data._doctor
+                            and p._birth_date == data._date
                     ):
                         existing = True
                         break
@@ -236,7 +236,7 @@ class AVLTableView(QWidget):
                 QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных")
                 return
 
-            data = Grade(
+            data = AVLTreeGrade(
                 name.text(), owner.text(), diag.text(), doctor.text(), date.text()
             )
 
@@ -250,7 +250,7 @@ class AVLTableView(QWidget):
                         and p._owner == data._owner
                         and p._dianoz == data._dianoz
                         and p._doctor == data._doctor
-                        and p._date == data._date
+                        and p._birth_date == data._date
                     ):
                         found_index = idx
                         break
@@ -312,7 +312,7 @@ class AVLTableView(QWidget):
                 QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных")
                 return
 
-            data = Grade(name.text(), owner.text())
+            data = AVLTreeGrade(name.text(), owner.text())
             node = self.tree.find(data)
 
             if not node:
@@ -379,7 +379,7 @@ class AVLTableView(QWidget):
                     while cur:
                         idx = cur._data
                         i = self.main_window.all_data[idx]
-                        line = f"{i._name} {i._owner} {i._dianoz} {i._doctor} {i._date}"
+                        line = f"{i._name} {i._owner} {i._dianoz} {i._doctor} {i._birth_date}"
                         file.write(line + "\n")
                         cur = cur._next
                     traverse(node._right)
