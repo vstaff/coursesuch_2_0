@@ -91,7 +91,7 @@ class AVLT2:
         height_changed = False
         key = data._date
 
-        if key < p._key:
+        if key < p.key:
             p._left, height_changed = self.insert(data, index, p._left)
             if height_changed:
                 if p._balance == -1:
@@ -103,7 +103,7 @@ class AVLT2:
                 else:
                     p._balance = 0
                     height_changed = False
-        elif key > p._key:
+        elif key > p.key:
             p._right, height_changed = self.insert(data, index, p._right)
             if height_changed:
                 if p._balance == 1:
@@ -143,9 +143,9 @@ class AVLT2:
         key = date
         current = self._root
         while current is not None:
-            if key < current._key:
+            if key < current.key:
                 current = current._left
-            elif key > current._key:
+            elif key > current.key:
                 current = current._right
             else:
                 return True

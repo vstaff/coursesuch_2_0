@@ -12,7 +12,7 @@ class Priem:
 
 class Node:
     def __init__(self, obj, index):
-        self._key = obj._name + obj._owner
+        self._key = obj.fio + obj.dob
         self._right = None
         self._list = List()
         self._list.add(index)
@@ -82,9 +82,9 @@ class AVLT:
         if p is None:
             return Node(data, index), True
         height_changed = False
-        key = data._name + data._owner
+        key = data.fio + data.dob
 
-        if key < p._key:
+        if key < p.key:
             p._left, height_changed = self.insert(data, index, p._left)
             if height_changed:
                 if p._balance == -1:
@@ -97,7 +97,7 @@ class AVLT:
                     p._balance = 0
                     height_changed = False
 
-        elif key > p._key:
+        elif key > p.key:
             p._right, height_changed = self.insert(data, index, p._right)
             if height_changed:
                 if p._balance == 1:
@@ -110,7 +110,7 @@ class AVLT:
                     p._balance = 0
                     height_changed = False
 
-        else:  # key == p._key
+        else:  # key == p.key
             if p._list.is_empty():
                 p._list.add(index)
             elif not p._list.contains(index):
@@ -125,12 +125,12 @@ class AVLT:
             self._root, _ = self.insert(item, idx, self._root)
 
     def search(self, data):
-        key = data._name + data._owner
+        key = data.fio + data.dob
         current = self._root
         while current is not None:
-            if key < current._key:
+            if key < current.key:
                 current = current._left
-            elif key > current._key:
+            elif key > current.key:
                 current = current._right
             else:
                 return current
@@ -138,7 +138,7 @@ class AVLT:
 
     def remove_max(self, p, temp):
         if p._right is None:
-            temp._key = p._key
+            temp.key = p.key
             temp._list = p._list
             return p._left, True
         else:
@@ -177,7 +177,7 @@ class AVLT:
         if p is None:
             return None, False
 
-        key = data._name + data._owner
+        key = data.fio + data.dob
 
         if key < p._key:
             p._left, height_changed = self.remove(data, p._left, height_changed)
@@ -235,7 +235,7 @@ class AVLT:
         if p is None:
             return p, False
 
-        key = data._name + data._owner
+        key = data.fio + data.dob
 
         if key < p._key:
             p._left, removed = self.remove_index(data, index, p._left)
@@ -258,12 +258,12 @@ class AVLT:
         return p, removed
 
     def find_exact(self, data):
-        key = data._name + data._owner
+        key = data.fio + data.dob
         node = self._root
         while node is not None:
-            if key < node._key:
+            if key < node.key:
                 node = node._left
-            elif key > node._key:
+            elif key > node.key:
                 node = node._right
             else:
                 current = node._list._head
@@ -277,7 +277,7 @@ class AVLT:
         if node is None:
             node = self._root
 
-        key = data._name + data._owner
+        key = data.fio + data.dob
         while node is not None:
             if key < node._key:
                 node = node._left

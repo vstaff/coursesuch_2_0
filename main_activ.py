@@ -1,66 +1,66 @@
 from PyQt6.QtWidgets import (
     QApplication,
-    QMainWindow,
-    QWidget,
-    QVBoxLayout,
-    QHBoxLayout,
-    QTableWidget,
-    QTableWidgetItem,
-    QPushButton,
-    QLineEdit,
-    QLabel,
-    QMessageBox,
-    QGraphicsView,
-    QGraphicsScene,
-    QGraphicsEllipseItem,
-    QGraphicsTextItem,
-    QGraphicsLineItem,
+    # QMainWindow,
+    # QWidget,
+    # QVBoxLayout,
+    # QHBoxLayout,
+    # QTableWidget,
+    # QTableWidgetItem,
+    # QPushButton,
+    # QLineEdit,
+    # QLabel,
+    # QMessageBox,
+    # QGraphicsView,
+    # QGraphicsScene,
+    # QGraphicsEllipseItem,
+    # QGraphicsTextItem,
+    # QGraphicsLineItem,
 )
 
 import re
-from AVL_Tree import AVLT
+# from AVL_Tree import AVLT
 import sys
 
-pattern = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
-pattern2 = (
-    r"(0[1-9]|[12][0-9]|3[01]) (янв|фев|мар|апр|май|июн|июл|авг|сен|окт|ноя|дек) \d{4}"
-)
+# Формат дат оставляем прежним (янв..дек), чтобы не ломать остальной код:
+MONTHED_DATE = r"(0[1-9]|[12][0-9]|3[01]) (янв|фев|мар|апр|май|июн|июл|авг|сен|окт|ноя|дек) \d{4}"
+FIO = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
+CLASS = r"[1-9][АБВГабвг]|10[АБВГабвг]|11[АБВГабвг]"                  # 1, 10, 11А и т.п.
+SUBJECT = r"[А-ЯЁа-яё\- ]+"                # предмет — русские буквы/пробел/дефис
+GRADE = r"[2-5]"                           # школьная оценка
 
 
-class Data:
-    def __init__(self, name="", type="", owner="", index=None):
-        self._name = name
-        self._type = type
-        self._owner = owner
-        self._key = sum(ord(c) for c in (name + owner))
+class MainActiveStudent:
+    def __init__(self, fio="", class_="", dob="", index=None):
+        self.fio = fio
+        self.class_ = class_
+        self.dob = dob
+        self.key = sum(ord(c) for c in (fio + dob))
         self._status = 0
         self._index = index
 
     def __eq__(self, other):
         return (
-            isinstance(other, Data)
-            and self._name == other._name
-            and self._type == other._type
-            and self._owner == other._owner
+                isinstance(other, MainActiveStudent)
+                and self.fio == other.fio
+                and self.class_ == other.class_
+                and self.dob == other.dob
         )
 
 
-class Priem:
-    def __init__(self, name="", owner="", diagonz="", doctor="", date=""):
-        self._name = name
-        self._owner = owner
-        self._dianoz = diagonz
-        self._doctor = doctor
-        self._date = date
+class MainActiveGrade:
+    def __init__(self, fio="", subject="", grade="", dob=""):
+        self.fio = fio
+        self.subject = subject
+        self.grade = grade
+        self.dob = dob
 
     def __eq__(self, other):
-        if isinstance(other, Priem):
+        if isinstance(other, MainActiveGrade):
             return (
-                self._name == other._name
-                and self._owner == other._owner
-                and self._dianoz == other._dianoz
-                and self._doctor == other._doctor
-                and self._date == other._date
+                    self.fio == other.fio
+                    and self.subject == other.subject
+                    and self.grade == other.grade
+                    and self.dob == other.dob
             )
         return False
 
@@ -76,80 +76,59 @@ def filesize(filename):
 
 
 def init_arr1(filename):
-    arr = [Data() for _ in range(filesize(filename))]
-    with open(filename, "r", encoding="utf-8") as file:
-        i = 0
-        for line in file:
-            parts = line.strip().split()
-            if len(parts) < 5 and len(parts) >= 10:
+    """
+    Ученики: каждая строка -> 'ФИО;Класс;ДатаРождения'
+    Например: 'Иванов Иван Иванович;10А;12 мар 2007'
+    """
+    arr = []
+    with open(filename, "r", encoding="utf-8") as f:
+        for raw in f:
+            line = raw.strip()
+            if not line:
                 continue
-            lname, fname, sname = parts[-3], parts[-2], parts[-1]
-            patsname = parts[0]
-            patstype_parts = parts[1:-3]
-            patstype = " ".join(patstype_parts)
-            if not (
-                re.fullmatch(r"[А-Я][а-я]+", lname)
-                and re.fullmatch(r"[А-Я][а-я]+", fname)
-                and re.fullmatch(r"[А-Я][а-я]+", sname)
-                and re.fullmatch(r"[А-Я][а-я]+", patsname)
-                and re.fullmatch(r"[А-Я][а-я]+( [а-я]+)*", patstype)
-            ):
+            # допускаем как; так и таб/много пробелов
+            parts = line.split(";")
+            if len(parts) != 3:
                 continue
-            fio = f"{lname} {fname} {sname}"
-            temp = Data(patsname, patstype, fio, i)
-            if temp in arr:
+
+            fio, klass, dob = parts
+            if not (re.fullmatch(FIO, fio) and re.fullmatch(CLASS, klass) and re.fullmatch(MONTHED_DATE, dob)):
                 continue
-            arr[i] = temp
-            i += 1
+
+            # MainActiveStudent(name=fio, type=klass, owner=dob, index=...)
+            idx = len(arr)
+            arr.append(MainActiveStudent(fio, klass, dob, idx))
     return arr
 
 
+
 def init_arr2(filename, table):
+    """
+    Оценки: каждая строка -> 'ФИО;Предмет;Оценка;Дата(=дата рождения ученика)'
+    Например: 'Иванов Иван Иванович;Русский язык;5;12 мар 2007'
+    """
     arr = []
-    with open(filename, "r", encoding="utf-8") as file:
-        for line in file:
-            parts = line.strip().split()
-            if len(parts) < 11:
+    with open(filename, "r", encoding="utf-8") as f:
+        for raw in f:
+            line = raw.strip()
+            if not line:
+                continue
+            parts = line.split(";")
+            if len(parts) != 4:
                 continue
 
-            patsname = parts[0]
-            lname, fname, sname = parts[1], parts[2], parts[3]
-            fio = lname + " " + fname + " " + sname
-
-            # Ищем позицию даты в конце
-            date_parts = parts[-3:]
-            date = " ".join(date_parts)
-            if not re.fullmatch(pattern2, date):
+            fio, subject, grade, dob = parts
+            if not (re.fullmatch(FIO, fio) and re.fullmatch(SUBJECT, subject) and re.fullmatch(GRADE, grade) and re.fullmatch(MONTHED_DATE, dob)):
                 continue
 
-            # Имя врача — три слова перед датой
-            doctor_parts = parts[-6:-3]
-            doctor = " ".join(doctor_parts)
-            if not re.fullmatch(pattern, doctor):
+            # Проверяем, что ученик есть в ХТ (ключ = fio+dob)
+            if not table.is_key(fio, dob):
+                # пропускаем записи без "родителя" в ХТ
                 continue
 
-            # Всё, что между ФИО и doctor — это диагноз
-            diagnoz_parts = parts[4:-6]
-            if not diagnoz_parts:
-                continue
-            diagnoz = " ".join(diagnoz_parts)
+            # MainActiveGrade(name=fio, owner=dob, diagonz=subject, doctor=grade, date="")
+            arr.append(MainActiveGrade(fio, dob, subject, grade))
 
-            # Проверка: диагноз — каждое слово начинается с заглавной только первое, остальные — с маленькой
-            if not re.fullmatch(r"[А-ЯЁ][а-яё]+( [а-яё]+)*", diagnoz):
-                continue
-
-            if not (
-                re.fullmatch(r"[А-ЯЁ][а-яё]+", patsname) and re.fullmatch(pattern, fio)
-            ):
-                continue
-
-            temp = Priem(patsname, fio, diagnoz, doctor, date)
-            if temp._name + temp._owner not in table.keys():
-                continue
-            if temp in arr:
-                continue
-
-            arr.append(temp)
     return arr
 
 

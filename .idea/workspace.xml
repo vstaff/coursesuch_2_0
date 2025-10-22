@@ -4,27 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1e58b13-23ce-4f30-be62-c02f61d31817" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Appointments.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PetsTableView.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+    <list default="true" id="b1e58b13-23ce-4f30-be62-c02f61d31817" name="Changes" comment="я уже не помню че я тут сделал&#10;короче я создам новую ветку&#10;на ней откачусь на самый старт">
       <change beforePath="$PROJECT_DIR$/.idea/Kursach.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Kursach.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AVL_Tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/AVL_Tree.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HasgTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/HasgTable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/List.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Otchet.py" beforeDir="false" afterPath="$PROJECT_DIR$/Otchet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OtchetTreeView.py" beforeDir="false" afterPath="$PROJECT_DIR$/OtchetTreeView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetsTableView.py" beforeDir="false" afterPath="$PROJECT_DIR$/PetsTableView.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StartWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/StartWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TableOtchet.py" beforeDir="false" afterPath="$PROJECT_DIR$/TableOtchet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ViewAVLT.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewAVLT.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ViewTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewTable.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ViewTreeTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/ViewTreeTable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Client.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data2.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main_activ.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_activ.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ttt.py" beforeDir="false" afterPath="$PROJECT_DIR$/ttt.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +30,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "vstaff"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/vstaff/coursesuch_2_0.git",
+    "accountId": "75cf217b-fbc2-4319-a893-b1b29fa3df32"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="34JlDDhcSSPcp3SeNAQmyIyMovA" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,11 +53,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.StartWindow.executor": "Debug",
+    "Python.main_activ.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "222",
-    "last_opened_file_path": "C:/Users/vstaffcheck/Desktop/vlad/ДВФУ ПРОГИН/КУРСАЧ/queer/Kursach"
+    "git-widget-placeholder": "earliest",
+    "last_opened_file_path": "C:/Users/vstaffcheck/Desktop/vlad/ДВФУ ПРОГИН/КУРСАЧ/queer/Kursach",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -79,5 +90,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_activ.py</url>
+          <line>77</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_activ.py</url>
+          <line>104</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

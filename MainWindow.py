@@ -1,41 +1,45 @@
 from PyQt6.QtWidgets import (
-    QApplication,
+    # QApplication,
     QMainWindow,
     QWidget,
     QVBoxLayout,
-    QHBoxLayout,
-    QTableWidget,
-    QTableWidgetItem,
+    # QHBoxLayout,
+    # QTableWidget,
+    # QTableWidgetItem,
     QPushButton,
     QLineEdit,
-    QLabel,
+    # QLabel,
     QMessageBox,
-    QGraphicsView,
-    QGraphicsScene,
-    QGraphicsEllipseItem,
-    QGraphicsTextItem,
-    QGraphicsLineItem,
+    # QGraphicsView,
+    # QGraphicsScene,
+    # QGraphicsEllipseItem,
+    # QGraphicsTextItem,
+    # QGraphicsLineItem,
     QDialog,
     QFormLayout,
 )
-from PyQt6.QtGui import QPen
-from PyQt6.QtCore import Qt
+# from PyQt6.QtGui import QPen
+# from PyQt6.QtCore import Qt
 from HasgTable import Hash_Table
 from AVL_Tree import AVLT
 import re
-from ViewTable import ViewTable
+# from ViewTable import ViewTable
 from PetsTableView import ArrtTableView
-from ViewAVLT import AVLGraphicsView
+# from ViewAVLT import AVLGraphicsView
 from ViewTreeTable import AVLTableView
-from ViewAVLT import AVLWindow
-from OtchetTreeView import AVL2Window
+# from ViewAVLT import AVLWindow
+# from OtchetTreeView import AVL2Window
 from TableOtchet import OtchetTable
-from Otchet import AVLT2
+# from Otchet import AVLT2
 
 pattern = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
 pattern2 = (
     r"(0[1-9]|[12][0-9]|3[01]) (янв|фев|мар|апр|май|июн|июл|авг|сен|окт|ноя|дек) \d{4}"
 )
+# Регулярки для проверки
+CLASS = r"\d{1,2}[А-ЯЁ]?"
+GRADE = r"[2-5]"
+DOB = r"(0[1-9]|[12][0-9]|3[01]) (янв|фев|мар|апр|май|июн|июл|авг|сен|окт|ноя|дек) \d{4}"
 
 
 class PetsPriem:
@@ -59,7 +63,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.tree = tree
         self.table = table
-        self.setWindowTitle("Ветеринарная клиника")
+        self.setWindowTitle("Предметная область школа")
         self.setGeometry(100, 100, 1600, 800)
         self.next_index = 1
         central_widget = QWidget()
@@ -80,46 +84,69 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.view_arrt_table)
         layout.addWidget(self.view_tree1)
 
-    def show_filtered_report(self, type_filter, doctor_filter, date_filter):
-        report_tree = AVLT2(self.all_data, self.table)
-        matching_rows = []
+    def show_filtered_report(self, filters):
+        """
+        Формирует таблицу отчёта по трём полям фильтра:
+        Класс, Оценка, Дата рождения.
+        Использует связку между ХТ (ученики) и АВЛ (оценки).
+        """
 
-        current = report_tree._root
-        while current is not None:
-            if date_filter < current._key:
-                current = current._left
-            elif date_filter > current._key:
-                current = current._right
-            else:
-                for i in range(current._list.get_size()):
-                    idx = current._list[i]
-                    if 0 <= idx < len(self.all_data):
-                        record = self.all_data[idx]
-                        if record is None:
-                            continue
-                        if doctor_filter in record._doctor.lower():
-                            try:
-                                type_from_hash = self.table.search(
-                                    record._name, record._owner
-                                )._type
-                            except Exception:
-                                type_from_hash = record._type
-                            if type_filter in type_from_hash.lower():
-                                matching_rows.append(
-                                    (
-                                        record._name,
-                                        type_from_hash,
-                                        record._owner,
-                                        record._dianoz,
-                                        record._doctor,
-                                        record._date,
-                                    )
-                                )
-                break
+        # Извлекаем значения фильтров
+        klass_filter = filters["klass"].strip()
+        grade_filter = filters["grade"].strip()
+        date_filter = filters["date"].strip()
 
-        # Открываем окно отчета в любом случае, даже если список пуст
+        # Проверяем форматы (если заполнены)
+        if klass_filter and not re.fullmatch(CLASS, klass_filter):
+            QMessageBox.warning(self, "Ошибка", "Неверный формат класса (например, 10А)")
+            return
+        if grade_filter and not re.fullmatch(GRADE, grade_filter):
+            QMessageBox.warning(self, "Ошибка", "Неверная оценка (2–5)")
+            return
+        if date_filter and not re.fullmatch(DOB, date_filter):
+            QMessageBox.warning(self, "Ошибка", "Неверный формат даты (10 дек 2007)")
+            return
+
+        report_rows = []
+
+        # Проходим по всем узлам дерева (оценки)
+        def traverse(node):
+            if not node:
+                return
+            traverse(node._left)
+            cur = node._list._head
+            while cur:
+                idx = cur._data
+                if 0 <= idx < len(self.all_data):
+                    record = self.all_data[idx]  # MainActiveGrade = оценка
+                    # Получаем класс ученика из хеш-таблицы (по ключу ФИО+дата)
+                    try:
+                        student = self.table.search(record.fio, record.owner)
+                        klass = student._type if student else ""
+                    except Exception:
+                        klass = ""
+
+                    # Проверяем фильтр
+                    if (klass_filter == "" or klass_filter.lower() == klass.lower()) and \
+                            (grade_filter == "" or grade_filter == record._doctor) and \
+                            (date_filter == "" or date_filter == record.owner):
+                        report_rows.append((
+                            record.fio,  # ФИО
+                            klass,  # Класс
+                            record.owner,  # Дата рождения
+                            record._dianoz,  # Предмет
+                            record._doctor,  # Оценка
+                            ""  # пустая "дата", просто чтобы совпадало с шаблоном отчёта
+                        ))
+                cur = cur._next
+            traverse(node._right)
+
+        # Рекурсивный обход
+        traverse(self.tree._root)
+
+        # Создаём и открываем окно отчёта
         self.report_window = OtchetTable(None, self)
-        self.report_window.update_table(matching_rows)
+        self.report_window.update_table(report_rows)
         self.report_window.show()
 
     def on_but_click(self):
@@ -131,9 +158,9 @@ class MainWindow(QMainWindow):
         doctor_input = QLineEdit()
         date_input = QLineEdit()
 
-        layout.addRow("Тип животного:", type_input)
-        layout.addRow("Имя врача:", doctor_input)
-        layout.addRow("Дата (например, 10 мар 2024):", date_input)
+        layout.addRow("Класс (например, 10А):", type_input)
+        layout.addRow("Оценка (2–5):", doctor_input)
+        layout.addRow("Дата рождения (10 дек 2007):", date_input)
 
         apply_button = QPushButton("Применить")
         layout.addWidget(apply_button)
@@ -150,19 +177,18 @@ class MainWindow(QMainWindow):
                 return
 
             if not (
-                re.fullmatch(r"[А-Я][а-я]+", type_text)
-                and re.fullmatch(pattern, doctor_text)
-                and re.fullmatch(pattern2, date_text)
+                    re.fullmatch(CLASS, type_text)
+                    and re.fullmatch(GRADE, doctor_text)
+                    and re.fullmatch(DOB, date_text)
             ):
                 QMessageBox.warning(dialog, "Ошибка", "Неверный формат входных данных")
                 return
-
-            result["type"] = type_text.lower()
-            result["doctor"] = doctor_text.lower()
-            result["date"] = date_text.lower()
+            result["klass"] = type_text
+            result["grade"] = doctor_text
+            result["date"] = date_text
             dialog.accept()  # Закрыть окно
 
         apply_button.clicked.connect(apply_filter)
 
         if dialog.exec() == QDialog.DialogCode.Accepted:
-            self.show_filtered_report(result["type"], result["doctor"], result["date"])
+            self.show_filtered_report(result)

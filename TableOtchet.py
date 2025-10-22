@@ -79,11 +79,11 @@ class OtchetTable(QWidget):
                     if p is None:
                         continue
                     try:
-                        type_ = self.main_window.table.search(p._name, p._owner)._type
+                        type_ = self.main_window.table.search(p.fio, p.owner)._type
                     except:
                         type_ = p._type
                     rows.append(
-                        (p._name, type_, p._owner, p._dianoz, p._doctor, p._date)
+                        (p.fio, type_, p.owner, p._dianoz, p._doctor, p._date)
                     )
         return rows
 
@@ -181,7 +181,7 @@ class OtchetTable(QWidget):
                 for p in self.main_window.arr:
                     if p is None:
                         continue
-                    line = f"{p._name} {p._type} {p._owner} {p._dianoz} {p._doctor} {p._date}"
+                    line = f"{p.fio} {p._type} {p.owner} {p._dianoz} {p._doctor} {p._date}"
                     file.write(line + "\n")
             QMessageBox.information(
                 self, "Экспорт завершён", "Данные успешно экспортированы."

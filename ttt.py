@@ -52,7 +52,7 @@ def init_arr1(filename):
 
 def h(arr, s):
     for i in arr:
-        s.append(abs(i._key % 10))
+        s.append(abs(i.key % 10))
     return s
 
 
@@ -60,14 +60,14 @@ arr = init_arr1("Client.txt")
 
 f = arr[0]
 
-# for c in arr[0]._name + arr[0]._owner:
+# for c in arr[0].fio + arr[0].owner:
 #      print(ord(c))
 s = "Рекс Собака Артем Валерьевич Зуев"
 print(sum(ord(c) for c in s) % 10)
 
 # if i != len(self.mainw.arrt) - 1:
 #                         last = self.mainw.arrt.pop()
-#                         last._index = i
+#                         last.index = i
 #                         self.mainw.arrt[i] = last
 #                     else:
 #                         self.mainw.arrt.pop()

@@ -33,7 +33,7 @@ class StartWindow(QWidget):
         greeting.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(greeting)
 
-        layout.addWidget(QLabel("Файл справочника Питомцы:"))
+        layout.addWidget(QLabel("Файл справочника Ученики:"))
         self.hash_path_input = QLineEdit()
         self.hash_path_input.setReadOnly(True)
         hash_button = QPushButton("Выбрать файл")
@@ -48,7 +48,7 @@ class StartWindow(QWidget):
         layout.addLayout(hash_layout)
         layout.addWidget(self.size_input)
 
-        layout.addWidget(QLabel("Файл справочника Приёмы (необязательно):"))
+        layout.addWidget(QLabel("Файл справочника Оценки (необязательно):"))
         self.tree_path_input = QLineEdit()
         self.tree_path_input.setReadOnly(True)
         tree_button = QPushButton("Выбрать файл")
@@ -66,7 +66,7 @@ class StartWindow(QWidget):
     def select_hash_file(self):
         file_path, _ = QFileDialog.getOpenFileName(
             self,
-            "Выберите файл для справочника Питомцы",
+            "Выберите файл для справочника Студенты",
             "",
             "Text Files (*.txt);;All Files (*)",
         )
@@ -76,7 +76,7 @@ class StartWindow(QWidget):
     def select_tree_file(self):
         file_path, _ = QFileDialog.getOpenFileName(
             self,
-            "Выберите файл для справочника Приёмы",
+            "Выберите файл для справочника Оценки",
             "",
             "Text Files (*.txt);;All Files (*)",
         )
@@ -88,7 +88,7 @@ class StartWindow(QWidget):
         tree_path = self.tree_path_input.text().strip()
 
         if not hash_path:
-            QMessageBox.warning(self, "Внимание", "Выберите файл справочника Питомцы.")
+            QMessageBox.warning(self, "Внимание", "Выберите файл справочника Студенты.")
             return
 
         try:

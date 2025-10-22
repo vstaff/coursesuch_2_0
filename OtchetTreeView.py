@@ -30,7 +30,7 @@ class OtchetGraphicsView(QGraphicsView):
         ellipse = QGraphicsEllipseItem(x - radius, y - radius, radius * 2, radius * 2)
         self.scene.addItem(ellipse)
 
-        key_text = QGraphicsTextItem(str(node._key))
+        key_text = QGraphicsTextItem(str(node.key))
         key_text.setPos(x - radius / 2, y - radius / 2)
         self.scene.addItem(key_text)
 

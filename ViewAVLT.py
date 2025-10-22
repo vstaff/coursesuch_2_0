@@ -49,7 +49,7 @@ class AVLGraphicsView(QGraphicsView):
         font = QFont()
         font.setPointSize(8)
 
-        key_str = str(node._key)
+        key_str = str(node.key)
         metrics = QFontMetricsF(font)
         max_width = radius * 3
 

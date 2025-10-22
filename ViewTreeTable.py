@@ -18,11 +18,11 @@ import re
 from AVL_Tree import Priem
 from ViewAVLT import AVLWindow
 
-
-pattern = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
-pattern2 = (
-    r"(0[1-9]|[12][0-9]|3[01]) (янв|фев|мар|апр|май|июн|июл|авг|сен|окт|ноя|дек) \d{4}"
-)
+# паттерны:
+FIO = r"[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+"
+DOB = r"(0[1-9]|[12][0-9]|3[01]) (янв|фев|мар|апр|май|июн|июл|авг|сен|окт|ноя|дек) \d{4}"
+SUBJECT = r"[А-ЯЁа-яё\- ]+"
+GRADE = r"[2-5]"
 
 
 class AVLTableView(QWidget):
@@ -39,7 +39,7 @@ class AVLTableView(QWidget):
 
         self.table.setColumnCount(6)
         self.table.setHorizontalHeaderLabels(
-            ["Кличка", "Владелец", "Диагноз", "Доктор", "Дата", "Индекс"]
+            ["ФИО", "Дата рождения", "Предмет", "Оценка", "—", "Индекс"]
         )
         self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
 
@@ -60,7 +60,6 @@ class AVLTableView(QWidget):
     def open_graphic_tree(self):
         self._graphic_window = AVLWindow(self.tree, self.main_window, self.table_data)
         self._graphic_window.show()
-        self._graphic_window.show()
 
     def refresh_table(self):
         rows = []
@@ -79,20 +78,19 @@ class AVLTableView(QWidget):
                 if p is None:
                     p = Priem("[Удалено]", "[Удалено]", "-", "-", "-")
 
-                rows.append((p._name, p._owner, p._dianoz, p._doctor, p._date, idx))
+                rows.append((p.fio, p.subject, p.grade, p.dob, idx))
                 cur = cur._next
             traverse(node._right)
 
         traverse(self.tree._root)
 
         self.table.setRowCount(len(rows))
-        for row, (name, owner, diag, doctor, date, idx) in enumerate(rows):
-            self.table.setItem(row, 0, QTableWidgetItem(name))
-            self.table.setItem(row, 1, QTableWidgetItem(owner))
-            self.table.setItem(row, 2, QTableWidgetItem(diag))
-            self.table.setItem(row, 3, QTableWidgetItem(doctor))
-            self.table.setItem(row, 4, QTableWidgetItem(date))
-            self.table.setItem(row, 5, QTableWidgetItem(str(idx)))
+        for row, (fio, subject, grade, dob, idx) in enumerate(rows):
+            self.table.setItem(row, 0, QTableWidgetItem(fio))
+            self.table.setItem(row, 1, QTableWidgetItem(subject))
+            self.table.setItem(row, 2, QTableWidgetItem(grade))
+            self.table.setItem(row, 3, QTableWidgetItem(dob))
+            self.table.setItem(row, 4, QTableWidgetItem(idx))
 
     def show_context_menu(self, pos):
         menu = QMenu()
@@ -116,7 +114,7 @@ class AVLTableView(QWidget):
 
     def show_insert_dialog(self):
         dialog = QDialog(self)
-        dialog.setWindowTitle("Добавить приём")
+        dialog.setWindowTitle("Добавить оценку")
         layout = QFormLayout(dialog)
 
         name = QLineEdit()
@@ -125,36 +123,33 @@ class AVLTableView(QWidget):
         doctor = QLineEdit()
         date = QLineEdit()
 
-        layout.addRow("Кличка (пример: Барсик):", name)
-        layout.addRow("Владелец (пример: Иван Сергеевич Петров):", owner)
-        layout.addRow("Диагноз (пример: Гастрит):", diag)
-        layout.addRow("Доктор (пример: Иван Сергеевич Петров):", doctor)
-        layout.addRow("Дата (пример 10 дек 2023):", date)
+        layout.addRow("ФИО:", name)
+        layout.addRow("Дата рождения:", owner)
+        layout.addRow("Предмет:", diag)
+        layout.addRow("Оценка (2-5):", doctor)
+        layout.addRow("— (не используется):", date)
 
         btn = QPushButton("Добавить")
         layout.addWidget(btn)
 
         def add():
             if not name.text() or not owner.text():
-                QMessageBox.warning(dialog, "Ошибка", "Имя и владелец обязательны")
+                QMessageBox.warning(dialog, "Ошибка", "ФИО и дата рождения обязательны")
                 return
             if not (
-                re.fullmatch(r"[А-Я][а-я]+", name.text())
-                and re.fullmatch(pattern, owner.text())
-                and re.fullmatch(r"[А-Я][а-я]+( [а-я]+)*", diag.text())
-                and re.fullmatch(pattern, doctor.text())
-                and re.fullmatch(pattern2, date.text())
+                    re.fullmatch(FIO, name.text())
+                    and re.fullmatch(DOB, owner.text())
+                    and re.fullmatch(SUBJECT, diag.text())
+                    and re.fullmatch(GRADE, doctor.text())
             ):
                 QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных")
                 return
             if not self.table_data.is_key(name.text(), owner.text()):
-                QMessageBox.warning(
-                    dialog, "Ошибка", "Такой клиент не найден в таблице"
-                )
+                QMessageBox.warning(dialog, "Ошибка", "Такой ученик не найден в справочнике 'Ученики'")
                 return
 
             data = Priem(
-                name.text(), owner.text(), diag.text(), doctor.text(), date.text()
+                name.text(), owner.text(), diag.text(), doctor.text(), ""
             )
 
             existing = False
@@ -166,11 +161,10 @@ class AVLTableView(QWidget):
                     if p is None:
                         to_remove.append(idx)
                     elif (
-                        p._name == data._name
-                        and p._owner == data._owner
-                        and p._dianoz == data._dianoz
-                        and p._doctor == data._doctor
-                        and p._date == data._date
+                            (p.fio or "") == (data.fio or "")
+                            and (p.dob or "") == (data.dob or "")
+                            and (p._dianoz or "") == (data._dianoz or "")
+                            and (p._doctor or "") == (data._doctor or "")
                     ):
                         existing = True
                         break
@@ -200,115 +194,21 @@ class AVLTableView(QWidget):
         btn.clicked.connect(add)
         dialog.exec()
 
-    def show_delete_dialog(self):
-        dialog = QDialog(self)
-        dialog.setWindowTitle("Удалить приём")
-        layout = QFormLayout(dialog)
-
-        name = QLineEdit()
-        owner = QLineEdit()
-        diag = QLineEdit()
-        doctor = QLineEdit()
-        date = QLineEdit()
-
-        layout.addRow("Кличка (пример: Барсик):", name)
-        layout.addRow("Владелец (пример: Иван Сергеевич Петров):", owner)
-        layout.addRow("Диагноз (пример: Гастрит):", diag)
-        layout.addRow("Доктор (пример: Иван Сергеевич Петров):", doctor)
-        layout.addRow("Дата (пример 10 дек 2023):", date)
-
-        btn = QPushButton("Удалить")
-        layout.addWidget(btn)
-
-        def delete():
-            if not name.text() or not owner.text():
-                QMessageBox.warning(dialog, "Ошибка", "Имя и владелец обязательны")
-                return
-
-            # 🔍 Добавляем проверку формата
-            if not (
-                re.fullmatch(r"[А-Я][а-я]+", name.text())
-                and re.fullmatch(pattern, owner.text())
-                and re.fullmatch(r"[А-Я][а-я]+( [а-я]+)*", diag.text())
-                and re.fullmatch(pattern, doctor.text())
-                and re.fullmatch(pattern2, date.text())
-            ):
-                QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных")
-                return
-
-            data = Priem(
-                name.text(), owner.text(), diag.text(), doctor.text(), date.text()
-            )
-
-            found_index = None
-            for idx in self.tree.find_index_by_data(data):
-                if 0 <= idx < len(self.main_window.all_data):
-                    p = self.main_window.all_data[idx]
-                    if (
-                        p
-                        and p._name == data._name
-                        and p._owner == data._owner
-                        and p._dianoz == data._dianoz
-                        and p._doctor == data._doctor
-                        and p._date == data._date
-                    ):
-                        found_index = idx
-                        break
-
-            if found_index is None:
-                QMessageBox.warning(
-                    dialog, "Ошибка", "Запись не найдена, удалять нечего"
-                )
-                return
-
-            last_index = len(self.main_window.all_data) - 1
-
-            if found_index == last_index:
-                self.tree._root, removed = self.tree.remove_index(data, found_index)
-                if removed:
-                    self.main_window.all_data.pop()
-            else:
-                last_item = self.main_window.all_data.pop()
-                self.tree._root, removed = self.tree.remove_index(data, found_index)
-                if removed:
-                    self.tree._root, _ = self.tree.remove_index(last_item, last_index)
-                    self.main_window.all_data[found_index] = last_item
-                    self.tree._root, _ = self.tree.insert(
-                        last_item, found_index, self.tree._root
-                    )
-
-            if removed:
-                self.refresh_table()
-                dialog.accept()
-                QMessageBox.information(dialog, "Успех", "Запись удалена")
-            else:
-                QMessageBox.warning(dialog, "Ошибка", "Не удалось удалить запись")
-
-        btn.clicked.connect(delete)
-        dialog.exec()
-
     def show_find_dialog(self):
         dialog = QDialog(self)
-        dialog.setWindowTitle("Найти приём")
+        dialog.setWindowTitle("Найти оценки ученика")
         layout = QFormLayout(dialog)
 
         name = QLineEdit()
         owner = QLineEdit()
-        layout.addRow("Кличка (пример: Барсик):", name)
-        layout.addRow("Владелец (пример: Иван Сергеевич Петров):", owner)
+        layout.addRow("ФИО:", name)
+        layout.addRow("Дата рождения:", owner)
 
         btn = QPushButton("Найти")
         layout.addWidget(btn)
 
         def find():
-            if not name.text() or not owner.text():
-                QMessageBox.warning(dialog, "Ошибка", "Имя и владелец обязательны")
-                return
-
-            if not (
-                re.fullmatch(r"[А-Я][а-я]+", name.text())
-                and re.fullmatch(pattern, owner.text())
-            ):
+            if not (re.fullmatch(FIO, name.text()) and re.fullmatch(DOB, owner.text())):
                 QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных")
                 return
 
@@ -316,19 +216,19 @@ class AVLTableView(QWidget):
             node = self.tree.search(data)
 
             if not node:
-                QMessageBox.warning(dialog, "Результат", "Приём не найден")
+                QMessageBox.warning(dialog, "Результат", "Оценки не найдены")
                 return
 
             info_dialog = QDialog(self)
-            info_dialog.setWindowTitle("Информация об узле")
+            info_dialog.setWindowTitle("Узел дерева (оценки)")
             layout_info = QVBoxLayout(info_dialog)
 
-            layout_info.addWidget(QLabel(f"<b>Ключ:</b> {node._key}"))
+            layout_info.addWidget(QLabel(f"<b>Ключ:</b> {node.key}"))
             layout_info.addWidget(QLabel(f"<b>Баланс:</b> {node._balance}"))
-            layout_info.addWidget(QLabel("<b>Приёмы:</b>"))
+            layout_info.addWidget(QLabel("<b>Список оценок:</b>"))
 
             if node._list is None or node._list._head is None:
-                layout_info.addWidget(QLabel("Нет приёмов в этом узле."))
+                layout_info.addWidget(QLabel("Нет оценок в этом узле."))
             else:
                 cur = node._list._head
                 while cur:
@@ -336,15 +236,13 @@ class AVLTableView(QWidget):
                     p = None
                     if 0 <= idx < len(self.main_window.all_data):
                         p = self.main_window.all_data[idx]
-
                     if p:
                         info = (
                             f"Индекс: {idx}\n"
-                            f"Имя: {p._name}\n"
-                            f"Владелец: {p._owner}\n"
-                            f"Диагноз: {p._dianoz}\n"
-                            f"Доктор: {p._doctor}\n"
-                            f"Дата: {p._date}\n"
+                            f"ФИО: {p._name}\n"
+                            f"Дата рождения: {p._owner}\n"
+                            f"Предмет: {p._dianoz}\n"
+                            f"Оценка: {p._doctor}\n"
                         )
                         layout_info.addWidget(QLabel(info))
                     else:
@@ -379,7 +277,7 @@ class AVLTableView(QWidget):
                     while cur:
                         idx = cur._data
                         i = self.main_window.all_data[idx]
-                        line = f"{i._name} {i._owner} {i._dianoz} {i._doctor} {i._date}"
+                        line = f"{i.fio} {i.owner} {i._dianoz} {i._doctor} {i._date}"
                         file.write(line + "\n")
                         cur = cur._next
                     traverse(node._right)

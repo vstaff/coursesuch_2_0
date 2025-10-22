@@ -18,8 +18,8 @@ from PyQt6.QtWidgets import QFileDialog
 from PyQt6.QtCore import Qt
 
 
-from HasgTable import Hash_Table, Data
-from HasgTable import Data
+from HasgTable import Hash_Table, HasgTableStudent
+from HasgTable import HasgTableStudent
 import re
 from ViewAVLT import AVLGraphicsView
 from AVL_Tree import AVLT
@@ -56,31 +56,25 @@ class ViewTable(QMainWindow):
     def refresh_table(self):
         data_list = self.table_obj.get_table()
         self.table_widget.setRowCount(len(data_list))
-        self.table_widget.setColumnCount(8)
+        self.table_widget.setColumnCount(9)
         self.table_widget.setHorizontalHeaderLabels(
-            [
-                "Index",
-                "Primary Hash",
-                "Key",
-                "Name",
-                "Type",
-                "FIO",
-                "Position",
-                "Status",
-            ]
+            ["Index", "Primary Hash", "Secondary Hash (i=1)", "Key", "ФИО", "Класс", "Дата рождения", "Position",
+             "Status"]
         )
 
         for i, data in enumerate(data_list):
-            primary_hash = self.table_obj.hash_func1(data._key)
+            primary_hash = self.table_obj.hash_func1(data.key)
+            secondary_hash = self.table_obj.kvadratich_poisk(data.key, 1)
             items = [
                 QTableWidgetItem(str(i)),
                 QTableWidgetItem(str(primary_hash)),
-                QTableWidgetItem(str(data._key)),
-                QTableWidgetItem(data._name),
+                QTableWidgetItem(str(secondary_hash)),
+                QTableWidgetItem(str(data.key)),
+                QTableWidgetItem(data.fio),
                 QTableWidgetItem(data._type),
-                QTableWidgetItem(data._owner),
-                QTableWidgetItem(str(data._index)),
-                QTableWidgetItem(str(data._status)),
+                QTableWidgetItem(data.owner),
+                QTableWidgetItem(str(data.index)),
+                QTableWidgetItem(str(data.status)),
             ]
             for j, item in enumerate(items):
                 item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
@@ -130,7 +124,7 @@ class ViewTable(QMainWindow):
     #         if not (re.fullmatch(pattern1, name) and re.fullmatch(r"[А-Я][а-я]+( [а-я]+)*", type_) and re.fullmatch(pattern2, owner)):
     #             QMessageBox.warning(dialog, "Ошибка", "Неверный формат вводимых данных.")
     #             return
-    #         self.mainw.arrt.append(Data(name,type_,owner))
+    #         self.mainw.arrt.append(MainActiveStudent(name,type_,owner))
     #         self.insert_action(dialog, name, type_, owner)
     #
     #     btn.clicked.connect(on_add_clicked)
@@ -181,7 +175,7 @@ class ViewTable(QMainWindow):
             QMessageBox.warning(self, "Ошибка", "Таблица переполнена.")
             return
         index = len(self.mainw.arrt)
-        data = Data(name, type_, owner, index)
+        data = HasgTableStudent(name, type_, owner, index)
         if self.table_obj.insert(data):
             self.refresh_table()
             dialog.accept()
@@ -201,7 +195,7 @@ class ViewTable(QMainWindow):
             return
 
         if self.table_obj.delete(temp):
-            if (len(self.mainw.arrt) - 1) == temp._index:
+            if (len(self.mainw.arrt) - 1) == temp.index:
                 temp = name + owner
                 key = name + owner
                 node = self.avl_tree.search(Priem(name, owner))
@@ -222,8 +216,8 @@ class ViewTable(QMainWindow):
                     self.avl_view.refresh_table()
             else:
                 tmp = self.mainw.arrt.pop()
-                tmp._index = temp._index
-                self.mainw.arrt[temp._index] = tmp
+                tmp.index = temp.index
+                self.mainw.arrt[temp.index] = tmp
                 temp = name + owner
                 key = name + owner
                 node = self.avl_tree.search(Priem(name, owner))
@@ -258,7 +252,7 @@ class ViewTable(QMainWindow):
             QMessageBox.information(
                 self,
                 "Найдено",
-                f"Найдено: {result._name}, {result._type}, {result._owner}, {result._index}",
+                f"Найдено: {result.fio}, {result._type}, {result.owner}, {result.index}",
             )
             dialog.accept()
         else:
@@ -273,9 +267,9 @@ class ViewTable(QMainWindow):
     #     try:
     #         with open(file_path, 'w', encoding='utf-8') as file:
     #             for i in range(len(tble)):
-    #                  if tble[i]._status == 1:
-    #                     full_name = tble[i]._owner.strip()
-    #                     line = f"{tble[i]._name} {tble[i]._type} {full_name}"
+    #                  if tble[i].status == 1:
+    #                     full_name = tble[i].owner.strip()
+    #                     line = f"{tble[i].fio} {tble[i]._type} {full_name}"
     #                     file.write(line + '\n')
     #         QMessageBox.information(self, "Экспорт завершён", "Данные успешно экспортированы.")
     #     except Exception as e:
